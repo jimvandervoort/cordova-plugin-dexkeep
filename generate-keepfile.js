@@ -1,11 +1,13 @@
 const fs = require('fs');
 const xml2js = require('xml2js');
+const configXmlPath = 'platforms/android/res/xml/config.xml';
+const keepfilePath = 'platforms/android/cordova-plugin-dexkeep/keepfile.txt';
 
 module.exports = function(context) {
-  let json = '';
-  
+  let configData;
+
   try {
-    let configData = fs.readFileSync('platforms/android/res/xml/config.xml', 'utf8');
+    configData = fs.readFileSync(configXmlPath, 'utf8');
   } catch (e) {
     console.error('Error reading config.xml:');
     console.error(e);
@@ -13,6 +15,8 @@ module.exports = function(context) {
   }
 
   let parser = new xml2js.Parser();
+  let json;
+
   parser.parseString(configData, function(err, result) {
     json = result;
   });
@@ -30,5 +34,5 @@ module.exports = function(context) {
     })
     .join('\n');
 
-    fs.writeFileSync('platforms/android/cordova-plugin-dexkeep/keepfile.txt', classList);
+    fs.writeFileSync(keepfilePath, classList);
 }
