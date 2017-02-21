@@ -1,0 +1,11 @@
+android {
+  defaultConfig {
+    multiDexEnabled true
+    multiDexKeepFile file('cordova-plugin-dexkeep/keepfile.txt')
+  }
+}
+
+dependencies {
+  compile 'com.android.support:multidex:1.0.0'
+}
+
